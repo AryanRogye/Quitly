@@ -13,10 +13,10 @@ struct QuitlyApp: App {
     var body: some Scene {
         QuitlyStatusBar()
         
-        WindowGroup("Preferences") {
+        Window("PreferencesView", id: "PreferencesView") {
             PreferencesView()
         }
-        .handlesExternalEvents(matching: Set(arrayLiteral: "preferences"))
+        .defaultLaunchBehavior(.suppressed)
     }
 }
 

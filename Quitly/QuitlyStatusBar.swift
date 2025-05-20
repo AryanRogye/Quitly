@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct QuitlyStatusBar: Scene {
+    @Environment(\.openWindow) var openWindow
+
     var body: some Scene {
         MenuBarExtra("Quitly", systemImage: "xmark.circle") {
             Button(action: {
-                if let url = URL(string: "quitly://preferences") {
-                    NSWorkspace.shared.open(url)
-                }
+                openWindow(id: "PreferencesView")
             }) {
                 Text("Preferences")
             }
