@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        
+        <!-- Quitly Accessibility Permissions -->
+        <key>NSAppleEventsUsageDescription</key>
+        <string>Quitly uses Accessibility APIs to detect app window state.</string>
+        
+        <!-- Quitly Bundle Identifier -->
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLName</key>
+                <string>com.aryanrogye.quitly</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>quitly</string>
+                </array>
+            </dict>
+        </array>
+        
+        <!-- Quitly Version -->
+        <key>CFBundleShortVersionString</key>
+        <string>1.0</string>
+        <key>CFBundleVersion</key>
+        <string>1.0</string>
+        <key>CFBundleIdentifier</key>
+        <string>com.aryanrogye.quitly</string>
+        <key>CFBundleName</key>
+        <string>Quitly</string>
+        <key>CFBundleDisplayName</key>
+        <string>Quitly</string>
+        <key>CFBundleExecutable</key>
+        <string>Quitly</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        
+    </dict>
+</plist>
