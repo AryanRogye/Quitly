@@ -9,6 +9,9 @@
 /* Begin PBXFileReference section */
 		9B4CF0AC2DDC614C0072C426 /* Quitly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quitly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4CF0EE2DDC77200072C426 /* run_quitly.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_quitly.sh; sourceTree = "<group>"; };
+		9B4CF2362DDD62890072C426 /* QuitLogo_Small_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuitLogo_Small_white.png; sourceTree = "<group>"; };
+		9B4CF2382DDD68690072C426 /* QuitlyLogo_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuitlyLogo_Small.png; sourceTree = "<group>"; };
+		9B4CF2392DDD68830072C426 /* QuitlyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuitlyLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -46,6 +49,7 @@
 		9B4CF0A32DDC614C0072C426 = {
 			isa = PBXGroup;
 			children = (
+				9B4CF2342DDD61980072C426 /* Assets */,
 				9B4CF0ED2DDC76BA0072C426 /* Scripts */,
 				9B4CF0AE2DDC614C0072C426 /* Quitly */,
 				9B4CF0AD2DDC614C0072C426 /* Products */,
@@ -68,6 +72,16 @@
 			path = Scripts;
 			sourceTree = "<group>";
 		};
+		9B4CF2342DDD61980072C426 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9B4CF2362DDD62890072C426 /* QuitLogo_Small_white.png */,
+				9B4CF2382DDD68690072C426 /* QuitlyLogo_Small.png */,
+				9B4CF2392DDD68830072C426 /* QuitlyLogo.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,7 +92,6 @@
 				9B4CF0A82DDC614C0072C426 /* Sources */,
 				9B4CF0A92DDC614C0072C426 /* Frameworks */,
 				9B4CF0AA2DDC614C0072C426 /* Resources */,
-				9B4CF0EC2DDC75360072C426 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -137,27 +150,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9B4CF0EC2DDC75360072C426 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "
-";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9B4CF0A82DDC614C0072C426 /* Sources */ = {

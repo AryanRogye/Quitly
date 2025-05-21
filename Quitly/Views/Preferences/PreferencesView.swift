@@ -15,9 +15,9 @@ struct PreferencesView: View {
     private var sidebarWidth: CGFloat {
         switch sidebarRowSize {
         case .small: 150
-        case .medium: 150
-        case .large: 150
-        @unknown default: 150
+        case .medium: 170
+        case .large: 190
+        @unknown default: 170
         }
     }
     
@@ -29,6 +29,8 @@ struct PreferencesView: View {
         }
         .navigationTitle(navigationState.settingsNavigationIdentifier.localized)
     }
+    
+    // MARK: - Internal Views
     
     @ViewBuilder
     private var sidebar: some View {
@@ -46,7 +48,6 @@ struct PreferencesView: View {
             .collapsible(false)
         }
         .scrollDisabled(true)
-//        .removeSidebarToggle()
         .navigationSplitViewColumnWidth(sidebarWidth)
         
     }
@@ -60,6 +61,8 @@ struct PreferencesView: View {
         case .about     : AboutView()
         }
     }
+    
+    // MARK: - Internal Functions
     
     @ViewBuilder
     private func sidebarItem(for identifier: SettingsNavigationIdentifier) -> some View {

@@ -11,7 +11,7 @@ struct QuitlyStatusBar: Scene {
     @Environment(\.openWindow) var openWindow
 
     var body: some Scene {
-        MenuBarExtra("Quitly", systemImage: "xmark.circle") {
+        MenuBarExtra("Quitly", image: "QuitLogo_white") {
             Button(action: {
                 openWindow(id: "PreferencesView")
             }) {

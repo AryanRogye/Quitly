@@ -8,16 +8,30 @@
 import SwiftUI
 
 struct GeneralView: View {
+    
     @StateObject private var appsManager : UserAppsManager = .shared
+    
     var body: some View {
         VStack {
             ScrollView {
+                HStack {
+                    Spacer()
+                    Toggle(isOn: $appsManager.showAdvancedApplications) {
+                        Text("Show Advanced Applications")
+                    }
+                    .toggleStyle(.switch)
+                }
                 ForEach(Array(appsManager.userApps), id: \.self) { app in
                     UserAppInfoRow(app: app)
                 }
                 Spacer()
             }
+            .padding(.horizontal, 8)
         }
-        .frame(width: 400, height: 300)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    GeneralView()
 }

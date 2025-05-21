@@ -40,10 +40,11 @@ final class WindowVisibilityManager: ObservableObject {
         }
         
         if windows.count > 0 {
+            print("App: \(app.localizedName ?? "Unknown") has \(windows.count) windows")
             return true
         }
 
-        return true
+        return false
     }
 
     private func accessibilityPermissionsGranted() -> Bool {

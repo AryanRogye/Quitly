@@ -26,6 +26,7 @@ struct UserAppInfoRow: View {
                 set: { newVal in
                     appsManager.userApps = appsManager.userApps.map { userApp in
                         if userApp.id == app.id {
+                            print("Toggled \(userApp.name) to \(newVal)")
                             var updatedApp = userApp
                             updatedApp.autoQuitEnabled = newVal
                             return updatedApp
@@ -38,6 +39,5 @@ struct UserAppInfoRow: View {
             }
             .toggleStyle(.switch)
         }
-        .padding(.horizontal, 8)
     }
 }
