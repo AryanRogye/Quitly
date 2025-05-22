@@ -9,5 +9,5 @@ import SwiftUI
 
 @MainActor
 final class SettingsManager: ObservableObject {
-    let generalSettingsManager: GeneralSettingsManager = .shared
+    @Published var generalSettingsManager = GeneralSettingsManager()
 }

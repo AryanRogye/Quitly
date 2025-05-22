@@ -8,8 +8,6 @@ import ApplicationServices
 import SwiftUI
 
 final class WindowVisibilityManager: ObservableObject {
-    static let shared = WindowVisibilityManager()
-    
     @Published var permissionsGranted: Bool = false
     
     init() {}

@@ -7,9 +7,8 @@
 import SwiftUI
 
 struct UserAppInfoRow: View {
-    
     var app: UserApp
-    @StateObject private var appsManager: UserAppsManager = .shared
+    @EnvironmentObject var appsManager: UserAppsManager
     
     var body: some View {
         HStack {

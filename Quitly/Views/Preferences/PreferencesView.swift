@@ -9,7 +9,8 @@ import SwiftUI
 import AppKit
 
 struct PreferencesView: View {
-    @StateObject var navigationState: AppNavigationState = .shared
+    
+    @EnvironmentObject var appState: AppStateManager
     @Environment(\.sidebarRowSize) var sidebarRowSize
     
     private var sidebarWidth: CGFloat {
@@ -27,14 +28,14 @@ struct PreferencesView: View {
         } detail: {
             detailView
         }
-        .navigationTitle(navigationState.settingsNavigationIdentifier.localized)
+        .navigationTitle(appState.navigationState.settingsNavigationIdentifier.localized)
     }
     
     // MARK: - Internal Views
     
     @ViewBuilder
     private var sidebar: some View {
-        List(selection: $navigationState.settingsNavigationIdentifier) {
+        List(selection: $appState.navigationState.settingsNavigationIdentifier) {
             Section {
                 ForEach(SettingsNavigationIdentifier.allCases, id: \.self) { identifier in
                     sidebarItem(for: identifier)
@@ -54,7 +55,7 @@ struct PreferencesView: View {
     
     @ViewBuilder
     private var detailView: some View {
-        switch navigationState.settingsNavigationIdentifier {
+        switch appState.navigationState.settingsNavigationIdentifier {
         case .general   : GeneralView()
         case .advanced  : AdvancedView()
         case .updates   : UpdatesView()
@@ -70,7 +71,7 @@ struct PreferencesView: View {
             Image(nsImage: icon(for: identifier))
                 .resizable()
                 .frame(width: 18, height: 17)
-                .foregroundColor(navigationState.settingsNavigationIdentifier == identifier
+                .foregroundColor(appState.navigationState.settingsNavigationIdentifier == identifier
                                  ? .white : .accentColor)
             
             Text(identifier.localized)

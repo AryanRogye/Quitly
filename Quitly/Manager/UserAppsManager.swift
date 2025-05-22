@@ -7,11 +7,16 @@
 
 import SwiftUI
 
+@MainActor
 final class UserAppsManager: ObservableObject {
-    static let shared = UserAppsManager()
     
     @Published var userApps: [UserApp] = []
-    @Published var showAdvancedApplications: Bool = false
+    
+    private weak var appState: AppStateManager?
+    
+    init(appState: AppStateManager) {
+        self.appState = appState
+    }
 
     public func startMonitoringUserApps() {
         /// We Poll Every 5 Seconds
@@ -24,10 +29,14 @@ final class UserAppsManager: ObservableObject {
     }
     
     private func updateUserAppsOpen() {
+        guard let appState else {
+            print("AppStateManager not initialized.")
+            return
+        }
         var updated: [UserApp] = []
         
         for app in NSWorkspace.shared.runningApplications {
-            if showAdvancedApplications {
+            if appState.settingsManager.generalSettingsManager.showAdvancedApplications {
                 /// Show All Running Applications
                 let existing = userApps.first(where: { $0.id == (app.bundleIdentifier ?? "\(app.processIdentifier)") })
                 updated.append(UserApp(app: app, autoQuitEnabled: existing?.autoQuitEnabled ?? false))
@@ -46,9 +55,13 @@ final class UserAppsManager: ObservableObject {
     }
     
     private func quitAppIfNeeded(_ app: UserApp) {
+        guard let appState else {
+            print("AppStateManager not initialized.")
+            return
+        }
         if app.autoQuitEnabled {
             print("Checking if \(app.name) has visible windows")
-            if !WindowVisibilityManager.shared.doesAppHasVisibleWindows(for: app.app) {
+            if !appState.visibilityManager.doesAppHasVisibleWindows(for: app.app) {
                 print("Quitting \(app.name)")
                 // Try graceful; fallback to force
                 if !app.app.terminate() {
