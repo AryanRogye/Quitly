@@ -9,23 +9,23 @@ import SwiftUI
 
 struct GeneralView: View {
     
-    @EnvironmentObject var appState: AppStateManager
+    @StateObject private var appsManager = UserAppsManager.shared
+    @StateObject private var settingsManager = SettingsManager.shared
     
-    private var generalSettingsManager: GeneralSettingsManager {
-        appState.settingsManager.generalSettingsManager
-    }
-
     var body: some View {
         VStack {
             ScrollView {
                 HStack {
                     Spacer()
-                    Toggle(isOn: generalSettingsManager.bindings.showAdvancedApps) {
+                    Toggle(isOn: $settingsManager.generalSettingsManager.showAdvancedApplications) {
                         Text("Show Advanced Applications")
                     }
                     .toggleStyle(.switch)
                 }
-                ForEach(Array(appState.appsManager.userApps), id: \.self) { app in
+                ForEach(Array(appsManager.userApps), id: \.self) { app in
+                    Text(app.name)
+                }
+                ForEach(Array(appsManager.userApps), id: \.self) { app in
                     UserAppInfoRow(app: app)
                 }
                 Spacer()
@@ -33,5 +33,12 @@ struct GeneralView: View {
             .padding(.horizontal, 8)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+//            print("Checking user apps...")
+//            for apps in appState.appsManager.userApps {
+//                print("\(apps.name)")
+//            }
+            print("UserAppsSize: \(appsManager.userApps.count)")
+        }
     }
 }

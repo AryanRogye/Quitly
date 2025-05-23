@@ -10,33 +10,33 @@ import SwiftUI
 @MainActor
 final class UserAppsManager: ObservableObject {
     
+    static let shared = UserAppsManager()
+    
     @Published var userApps: [UserApp] = []
     
-    private weak var appState: AppStateManager?
+    private var settingsManager: SettingsManager = .shared
+    private var visibilityManager: WindowVisibilityManager = .shared
     
-    init(appState: AppStateManager) {
-        self.appState = appState
-    }
+    
 
     public func startMonitoringUserApps() {
         /// We Poll Every 5 Seconds
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
-            self?.updateUserAppsOpen()
-            self?.userApps.forEach({ app in
-                self?.quitAppIfNeeded(app)
-            })
+            Task { [weak self] in
+                guard let self else { return }
+                await self.updateUserAppsOpen()
+                for app in await self.userApps {
+                    await self.quitAppIfNeeded(app)
+                }
+            }
         }
     }
     
     private func updateUserAppsOpen() {
-        guard let appState else {
-            print("AppStateManager not initialized.")
-            return
-        }
         var updated: [UserApp] = []
         
         for app in NSWorkspace.shared.runningApplications {
-            if appState.settingsManager.generalSettingsManager.showAdvancedApplications {
+            if settingsManager.generalSettingsManager.showAdvancedApplications {
                 /// Show All Running Applications
                 let existing = userApps.first(where: { $0.id == (app.bundleIdentifier ?? "\(app.processIdentifier)") })
                 updated.append(UserApp(app: app, autoQuitEnabled: existing?.autoQuitEnabled ?? false))
@@ -50,18 +50,15 @@ final class UserAppsManager: ObservableObject {
         }
         
         DispatchQueue.main.async {
+            print("UserAppSize: \(updated.count)")
             self.userApps = updated
         }
     }
     
     private func quitAppIfNeeded(_ app: UserApp) {
-        guard let appState else {
-            print("AppStateManager not initialized.")
-            return
-        }
         if app.autoQuitEnabled {
             print("Checking if \(app.name) has visible windows")
-            if !appState.visibilityManager.doesAppHasVisibleWindows(for: app.app) {
+            if !visibilityManager.doesAppHasVisibleWindows(for: app.app) {
                 print("Quitting \(app.name)")
                 // Try graceful; fallback to force
                 if !app.app.terminate() {

@@ -7,8 +7,14 @@
 import SwiftUI
 
 struct UserAppInfoRow: View {
+    
+    @StateObject private var appsManager = UserAppsManager.shared
+
     var app: UserApp
-    @EnvironmentObject var appsManager: UserAppsManager
+    
+    init(app: UserApp) {
+        self.app = app
+    }
     
     var body: some View {
         HStack {
@@ -37,6 +43,13 @@ struct UserAppInfoRow: View {
                 Text("Quit")
             }
             .toggleStyle(.switch)
+        }
+        .onAppear {
+//            print("Checking user apps...")
+//            for apps in appState.appsManager.userApps {
+//                print("\(apps.name)")
+//            }
+            print("UserAppsSize: \(appsManager.userApps.count)")
         }
     }
 }

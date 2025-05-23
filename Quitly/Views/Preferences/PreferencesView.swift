@@ -10,7 +10,7 @@ import AppKit
 
 struct PreferencesView: View {
     
-    @EnvironmentObject var appState: AppStateManager
+    @StateObject private var navigationState = AppNavigationState.shared
     @Environment(\.sidebarRowSize) var sidebarRowSize
     
     private var sidebarWidth: CGFloat {
@@ -22,20 +22,23 @@ struct PreferencesView: View {
         }
     }
     
+    init() {
+    }
+    
     var body: some View {
         NavigationSplitView {
             sidebar
         } detail: {
             detailView
         }
-        .navigationTitle(appState.navigationState.settingsNavigationIdentifier.localized)
+        .navigationTitle(navigationState.settingsNavigationIdentifier.localized)
     }
     
     // MARK: - Internal Views
     
     @ViewBuilder
     private var sidebar: some View {
-        List(selection: $appState.navigationState.settingsNavigationIdentifier) {
+        List(selection: $navigationState.settingsNavigationIdentifier) {
             Section {
                 ForEach(SettingsNavigationIdentifier.allCases, id: \.self) { identifier in
                     sidebarItem(for: identifier)
@@ -55,7 +58,7 @@ struct PreferencesView: View {
     
     @ViewBuilder
     private var detailView: some View {
-        switch appState.navigationState.settingsNavigationIdentifier {
+        switch navigationState.settingsNavigationIdentifier {
         case .general   : GeneralView()
         case .advanced  : AdvancedView()
         case .updates   : UpdatesView()
@@ -71,9 +74,9 @@ struct PreferencesView: View {
             Image(nsImage: icon(for: identifier))
                 .resizable()
                 .frame(width: 18, height: 17)
-                .foregroundColor(appState.navigationState.settingsNavigationIdentifier == identifier
+                .foregroundColor(navigationState.settingsNavigationIdentifier == identifier
                                  ? .white : .accentColor)
-            
+
             Text(identifier.localized)
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.primary)
@@ -90,8 +93,4 @@ struct PreferencesView: View {
         case .about: return NSImage(systemSymbolName: "cube.fill", accessibilityDescription: nil) ?? NSImage()
         }
     }
-}
-
-#Preview {
-    PreferencesView()
 }

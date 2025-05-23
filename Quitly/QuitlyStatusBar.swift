@@ -9,8 +9,7 @@ import SwiftUI
 
 struct QuitlyStatusBar: Scene {
     @Environment(\.openWindow) var openWindow
-    @EnvironmentObject var appState: AppStateManager
-        
+    
     var body: some Scene {
         MenuBarExtra("Quitly", image: "QuitLogo_white") {
             Button(action: {

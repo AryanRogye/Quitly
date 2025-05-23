@@ -11,17 +11,19 @@ import SwiftUI
 struct QuitlyApp: App {
     
     @NSApplicationDelegateAdaptor var appDelegate: AppDelegate
-    @StateObject private var appState = AppStateManager()
+    @StateObject private var appState = AppStateManager.shared
     
     init() {
         appDelegate.assignAppState(appState)
     }
-
+    
     var body: some Scene {
+        QuitlyStatusBar()
+        
+        
         Window("PreferencesView", id: "PreferencesView") {
             PreferencesView()
                 .environmentObject(appState)
-
         }
         .defaultLaunchBehavior(.suppressed)
     }

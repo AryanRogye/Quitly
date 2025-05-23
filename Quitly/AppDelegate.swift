@@ -12,10 +12,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var appState: AppStateManager?
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-        guard let appState else {
-            print("AppDelegate not initialized with AppStateManager.")
-            return
-        }
+//        guard let appState else {
+//            print("AppDelegate not initialized with AppStateManager.")
+//            return
+//        }
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {

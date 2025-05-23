@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 final class QuitlyItem {
     
-    private weak var appState: AppStateManager?
+    private let appState: AppStateManager?
     private let statusItem: NSStatusItem
     @Environment(\.openWindow) var openWindow
 
